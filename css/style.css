@@ -1,0 +1,13 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  color: #e1e1e1;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(34, 36, 38);
+}/*# sourceMappingURL=style.css.map */
