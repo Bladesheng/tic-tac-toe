@@ -1,4 +1,69 @@
-const gameboard = (() => {
+const game = (() => {
+  let currentPlayer = 1;
+  let freeze = false;
+
+
+  const info = () => {
+    gameBoard.info();
+    if (freeze) {return};
+    console.log(`Current player is: Player ${currentPlayer}`);
+  }
+
+  const reset = () => {
+    currentPlayer = 1;
+    freeze = false;
+    gameBoard.reset();
+    info();
+  }
+
+  const mark = (position) => {
+    gameBoard.insert(position, currentPlayer);
+
+    _evaluateBoard();
+
+    _nextPlayer();
+
+    info();
+  }
+  
+  const _evaluateBoard = () => {
+    // true == tie, number == winner, false == normal game
+    const gameStatus = gameBoard.checkGameOver();
+  
+    if (gameStatus === true) {
+      console.log("Tie.");
+      _freezeBoard();
+    }
+    else if (gameStatus > 0) {
+      console.log(`Player ${gameStatus} won the game.`)
+      _freezeBoard();
+    }
+  }
+
+  const _freezeBoard = () => {
+    //freezes the board until reset button is clicked
+    freeze = true;
+  }
+
+  const _nextPlayer = () => {
+    if (currentPlayer === 1) {
+      currentPlayer = 2;
+    }
+    else {
+      currentPlayer = 1;
+    }
+  }
+
+
+  return {
+    info,
+    reset,
+    mark,
+  }
+})();
+
+
+const gameBoard = (() => {
   let _board = [];
   
   const info = () => {
@@ -11,25 +76,29 @@ const gameboard = (() => {
     _board = [0, 0, 0,
               0, 0, 0,
               0, 0, 0];
-
-    info();
   }
-  reset();
 
   const insert = (position, playerNumber) => {
     _board[position] = playerNumber;
-    _checkGameOver();
-    info();
   }
 
-  const _checkGameOver = () => {
-    _checkTie();
-    _checkWin();
+  const checkGameOver = () => {
+    const winner = _checkWin();
+    
+    if (winner > 0) {
+      return winner; // if win, return winner number
+    }
+    else if (_checkTie()) {
+      return true; // if tie, return true
+    }
+    else {
+      return false; // if no tie or win, return false
+    }
   }
 
   const _checkTie = () => {
     if (! _board.includes(0)) { // if all spaces are filled
-      _gameOver();
+      return true;
     }
   }
 
@@ -45,7 +114,7 @@ const gameboard = (() => {
       [6, 4, 2],
     ]
 
-    winPatterns.forEach((pattern) => {
+    for (const pattern of winPatterns) {
       // saves all unique numbers from the possible winning line
       const winningLine = new Set([_board[pattern[0]],_board[pattern[1]],_board[pattern[2]]]);
       
@@ -53,20 +122,9 @@ const gameboard = (() => {
         Array.from(winningLine)[0] !== 0 // exclude lines with only 0s
         &&
         winningLine.size === 1 // if the line contains ONLY 1s or ONLY 2s
-        ) {      
-        _gameOver(
-          Array.from(winningLine)[0] // announce the player whose numbers are in the line
-        ); 
-      }
-    })
-  }
-  
-  const _gameOver = (playerNumber) => {
-    if (playerNumber === undefined) {
-      console.log("Game over. Tie.");
-    }
-    else {
-      console.log(`Game over. Player ${playerNumber} won`);
+        ) {
+          return Array.from(winningLine)[0]; // player whose numbers are in the line
+        }
     }
   }
 
@@ -74,6 +132,10 @@ const gameboard = (() => {
     reset,
     info,
     insert,
+    checkGameOver
   };
 })();
 
+
+// start first game
+game.reset();
