@@ -64,6 +64,7 @@ main .boardWrapper .tile {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 main button {
   font-family: "Roboto", sans-serif;
@@ -75,10 +76,15 @@ main button {
   border-radius: 5px;
   padding: 0.5em;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 main button:hover,
 main .tile:hover {
   filter: brightness(1.2);
+}
+main button:active,
+main .tile:active {
+  filter: brightness(1.5);
 }
 
 footer {

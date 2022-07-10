@@ -82,6 +82,7 @@ main {
 
       cursor: pointer;
       user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
   }
 
@@ -98,11 +99,17 @@ main {
 
     padding: 0.5em;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
 
   button:hover,
   .tile:hover {
     filter: brightness(1.2);
+  }
+
+  button:active,
+  .tile:active {
+    filter: brightness(1.5);
   }
 }
 
