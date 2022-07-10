@@ -83,6 +83,18 @@ main {
       cursor: pointer;
       user-select: none;
       -webkit-tap-highlight-color: transparent;
+
+      transition: text-shadow 2s ease-out, color 2s ease-out;
+    }
+
+    .loss {
+      color: transparent;
+      text-shadow: 0 0 0.07em rgba(225, 225, 225, 0.4);
+    }
+
+    .win {
+      color: $font-color-primary;
+      text-shadow: 0 0 0.07em transparent;
     }
   }
 

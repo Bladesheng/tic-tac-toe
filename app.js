@@ -1,3 +1,5 @@
+const tiles = document.querySelectorAll(".tile");
+
 function numToMark(playerNumber) {
   return (playerNumber === 1) ? "X" : "O"; 
 }
@@ -7,7 +9,6 @@ const game = (() => {
   let currentPlayer = 1;
   let freeze = false;
 
-  const tiles = document.querySelectorAll(".tile");
   tiles.forEach((tile, position) => {
     tile.addEventListener("click", () => {
       mark(position);
@@ -31,6 +32,7 @@ const game = (() => {
     tiles.forEach((tile, position) => {
       gameBoard.fillTile(position, 0)
     })
+    gameBoard.resetWinLine();
     gameBoard.reset();
     info();
   }
@@ -147,6 +149,7 @@ const gameBoard = (() => {
         &&
         winningLine.size === 1 // if the line contains ONLY 1s or ONLY 2s
         ) {
+          _markWinLine(pattern);
           return Array.from(winningLine)[0]; // player whose numbers are in the line
         }
     }
@@ -165,6 +168,23 @@ const gameBoard = (() => {
     }
   }
 
+  const _markWinLine = (pattern) => {
+    tiles.forEach((tile) => {
+      tile.classList.add("loss");
+    })
+
+    for (const position of pattern) {
+      document.getElementById(position).classList.add("win");
+    }
+  }
+
+  const resetWinLine = () => {
+    tiles.forEach((tile) => {
+      tile.classList.remove("loss");
+      tile.classList.remove("win");
+    })
+  }
+
 
   return {
     reset,
@@ -173,6 +193,7 @@ const gameBoard = (() => {
     checkGameOver,
     isFilled,
     fillTile,
+    resetWinLine,
   };
 })();
 

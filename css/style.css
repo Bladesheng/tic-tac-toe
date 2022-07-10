@@ -65,6 +65,15 @@ main .boardWrapper .tile {
       -ms-user-select: none;
           user-select: none;
   -webkit-tap-highlight-color: transparent;
+  transition: text-shadow 2s ease-out, color 2s ease-out;
+}
+main .boardWrapper .loss {
+  color: transparent;
+  text-shadow: 0 0 0.07em rgba(225, 225, 225, 0.4);
+}
+main .boardWrapper .win {
+  color: #e1e1e1;
+  text-shadow: 0 0 0.07em transparent;
 }
 main button {
   font-family: "Roboto", sans-serif;
