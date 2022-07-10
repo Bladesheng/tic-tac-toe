@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 
-$font-stack: 'Roboto', sans-serif;
+$font-stack: 'Varela Round', sans-serif;
 $font-color-primary: rgb(225, 225, 225);
 $font-color-secondary: rgb(208, 83, 152);
 
@@ -78,7 +78,8 @@ main {
       border-radius: 5px;
 
       font-size: 15vh;
-      font-weight: 400;
+      padding-top: 0.05em;
+      overflow: hidden;
 
       cursor: pointer;
       user-select: none;
@@ -140,7 +141,7 @@ footer {
 }
 
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 500px) {
   header {
     font-size: 3vw;
   }

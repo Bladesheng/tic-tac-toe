@@ -15,7 +15,7 @@ body {
   min-height: -webkit-fill-available;
   display: flex;
   flex-direction: column;
-  font-family: "Roboto", sans-serif;
+  font-family: "Varela Round", sans-serif;
   color: #e1e1e1;
   background-color: rgb(34, 36, 38);
 }
@@ -58,7 +58,8 @@ main .boardWrapper .tile {
   background-color: rgb(48, 48, 48);
   border-radius: 5px;
   font-size: 15vh;
-  font-weight: 400;
+  padding-top: 0.05em;
+  overflow: hidden;
   cursor: pointer;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -76,7 +77,7 @@ main .boardWrapper .win {
   text-shadow: 0 0 0.07em transparent;
 }
 main button {
-  font-family: "Roboto", sans-serif;
+  font-family: "Varela Round", sans-serif;
   font-size: 4vh;
   color: rgb(208, 83, 152);
   background-color: rgb(48, 48, 48);
@@ -107,7 +108,7 @@ footer a {
   color: rgb(208, 83, 152);
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 500px) {
   header {
     font-size: 3vw;
   }
