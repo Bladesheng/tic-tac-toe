@@ -1,22 +1,45 @@
+function numToMark(playerNumber) {
+  return (playerNumber === 1) ? "X" : "O"; 
+}
+
+
 const game = (() => {
   let currentPlayer = 1;
   let freeze = false;
+
+  const tiles = document.querySelectorAll(".tile");
+  tiles.forEach((tile, position) => {
+    tile.addEventListener("click", () => {
+      mark(position);
+    })
+  });
+
+  const resetBtn = document.querySelector(".reset");
+  resetBtn.addEventListener("click", () => {reset()})
 
 
   const info = () => {
     gameBoard.info();
     if (freeze) {return};
+    _updateInfo(`Player ${numToMark(currentPlayer)}'s turn`)
     console.log(`Current player is: Player ${currentPlayer}`);
   }
 
   const reset = () => {
     currentPlayer = 1;
     freeze = false;
+    tiles.forEach((tile, position) => {
+      gameBoard.fillTile(position, 0)
+    })
     gameBoard.reset();
     info();
   }
 
   const mark = (position) => {
+    if (freeze || gameBoard.isFilled(position)) {return};
+
+    gameBoard.fillTile(position, currentPlayer);
+
     gameBoard.insert(position, currentPlayer);
 
     _evaluateBoard();
@@ -31,10 +54,12 @@ const game = (() => {
     const gameStatus = gameBoard.checkGameOver();
   
     if (gameStatus === true) {
+      _updateInfo("It's a draw!")
       console.log("Tie.");
       _freezeBoard();
     }
     else if (gameStatus > 0) {
+      _updateInfo(`Player ${numToMark(gameStatus)} has won!`)
       console.log(`Player ${gameStatus} won the game.`)
       _freezeBoard();
     }
@@ -46,12 +71,11 @@ const game = (() => {
   }
 
   const _nextPlayer = () => {
-    if (currentPlayer === 1) {
-      currentPlayer = 2;
-    }
-    else {
-      currentPlayer = 1;
-    }
+    currentPlayer = (currentPlayer === 1) ? 2 : 1;
+  }
+
+  const _updateInfo = (text) => {
+    document.querySelector(".info").textContent = text;
   }
 
 
@@ -128,11 +152,27 @@ const gameBoard = (() => {
     }
   }
 
+  const isFilled = (position) => {
+    return (_board[position] !== 0)
+  }
+
+  const fillTile = (position, player) => {
+    if (player > 0) {
+      document.getElementById(position).textContent = numToMark(player);
+    }
+    else { // for resetting the board
+      document.getElementById(position).textContent = "";
+    }
+  }
+
+
   return {
     reset,
     info,
     insert,
-    checkGameOver
+    checkGameOver,
+    isFilled,
+    fillTile,
   };
 })();
 
