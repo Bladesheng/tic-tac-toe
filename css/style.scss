@@ -6,7 +6,7 @@
 
 $font-stack: 'Roboto', sans-serif;
 $font-color-primary: rgb(225, 225, 225);
-$font-color-secondary: rgb(208, 158, 83);
+$font-color-secondary: rgb(208, 83, 152);
 
 $font-color-primary: #e1e1e1;
 
@@ -14,13 +14,136 @@ $color-primary: rgb(34, 36, 38);
 $color-secondary: rgb(48, 48, 48);
 $color-dark: rgb(24, 26, 27);
 
+html {
+  height: -webkit-fill-available;
+}
 
 body {
-  font-family: $font-stack;
-  color: $font-color-primary;
-
   height: 100vh;
   width: 100vw;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+ 
+  display: flex;
+  flex-direction: column;
 
+  font-family: $font-stack;
+  color: $font-color-primary;
   background-color: $color-primary;
+}
+
+
+header {
+  flex: 0 1 auto;
+  padding: 0.5em;
+  padding-left: 1.5em;
+  
+  font-size: 1rem;
+  color: $font-color-secondary;
+  text-shadow: 0 0 0.4em $font-color-secondary;
+}
+
+
+main {
+  flex: 1 1 auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 7vh;
+
+  .info {
+    font-size: 7vh;
+  }
+
+  .boardWrapper {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 4px;
+    border: 4px $font-color-secondary solid;
+    background-color: $font-color-secondary;
+    border-radius: 5px;
+
+    .tile {
+      width: 15vh;
+      height: 15vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      background-color: $color-secondary;
+      border-radius: 5px;
+
+      font-size: 15vh;
+      font-weight: 400;
+
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+
+  button {
+    font-family: $font-stack;
+    font-size: 4vh;
+    color: $font-color-secondary;
+
+    background-color: $color-secondary;
+
+    outline: none;
+    border: 2px $font-color-secondary solid;
+    border-radius: 5px;
+
+    padding: 0.5em;
+    cursor: pointer;
+  }
+
+  button:hover,
+  .tile:hover {
+    filter: brightness(1.2);
+  }
+}
+
+
+footer {
+  flex: 0 1 auto;
+  
+  text-align: center;
+  padding: 0.8rem;
+  font-size: 0.8rem;
+
+  a {
+    text-decoration: none;
+    color: $font-color-secondary;
+  }
+}
+
+
+@media screen and (max-width: 450px) {
+  header {
+    font-size: 3vw;
+  }
+
+  main {
+    gap: 8vw;
+
+    .info {
+      font-size: 10vw;
+    }
+
+    .boardWrapper {
+      .tile {
+        width: 27vw;
+        height: 27vw;
+  
+        font-size: 27vw;
+      }
+    }
+
+    button {
+      font-size: 7vw;
+    }
+  }
 }
