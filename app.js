@@ -1,3 +1,5 @@
+"use strict";
+
 const tiles = document.querySelectorAll(".tile");
 
 function numToMark(playerNumber) {
